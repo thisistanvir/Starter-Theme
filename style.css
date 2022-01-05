@@ -1,0 +1,209 @@
+/*
+Theme Name: Starter Theme
+Theme URI: https://itanvir.net/starter-theme/
+Author: iTanvir
+Author URI: https://itanvir.net/
+Description: This is WordPress Starter Theme.
+Tags: blog
+Version: 1.0
+Requires at least: 5.0
+Tested up to: 5.8.2
+Requires PHP: 7.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: starter-theme
+*/
+
+/* =================== 
+Default CSS
+=====================================*/
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* Remove default padding */
+ul[class],
+ol[class] {
+	padding: 0;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+	list-style: none;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+	margin: 0;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+	text-decoration-skip-ink: auto;
+}
+a,
+a:hover,
+.btn {
+	text-decoration: none;
+}
+a:focus {
+	outline: 0 solid;
+	text-decoration: none;
+}
+input:focus,
+button:focus,
+textarea:focus,
+a:focus,
+.btn {
+	outline: none;
+}
+
+.btn:focus {
+	outline: none;
+	box-shadow: 0 0 0 0;
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+	margin-top: 1em;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+	* {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* =================== 
+Global CSS
+=====================================*/
+:root {
+	--body-color: #262626;
+	--heading-color: #000000;
+	--hover-color: #ea1a70;
+	--white-color: #ffffff;
+
+	--body-font: "Oswald", sans-serif;
+	--heading-font: "Roboto", sans-serif;
+}
+
+/* Set core body defaults */
+body {
+	min-height: 100vh;
+	scroll-behavior: smooth;
+	text-rendering: optimizeSpeed;
+	/* background-color: var(--white-color); */
+	font-size: 15px;
+	font-weight: 400;
+	font-style: normal;
+	font-family: var(--body-font);
+	line-height: 1.5;
+	color: var(--body-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--heading-font);
+	font-weight: 700;
+	color: var(--heading-color);
+	margin: 0 0 15px;
+}
+
+p {
+	margin-bottom: 15px;
+}
+p:last-child {
+	margin-bottom: 0;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	/* display: block;
+	overflow: hidden;
+	object-fit: cover;
+	-o-object-fit: cover; */
+}
+
+a {
+	color: var(--body-color);
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+a:hover {
+	color: var(--hover-color);
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+textarea {
+	border: 1px solid #ddd;
+	padding: 10px;
+}
+
+.alignleft {
+	float: left;
+	margin-right: 15px;
+}
+.alignright {
+	float: right;
+	margin-left: 15px;
+}
+.aligncenter {
+	display: block;
+	margin: 0 auto 15px;
+}
+
+.content-block {
+	padding: 60px 0;
+}
+.section {
+	position: relative;
+}
+.section .section-container {
+	max-width: 1140px;
+}
+.section .section-container {
+	display: flex;
+	margin-right: auto;
+	margin-left: auto;
+	position: relative;
+}
+.internal-content-wrap {
+	min-width: 100%;
+}

@@ -1,0 +1,76 @@
+/* =================== 
+Pagenav Area Style
+=====================================*/
+.internal_header_wrap {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0;
+}
+.left_menu .internal_header_wrap {
+	flex-direction: row-reverse;
+}
+.center_menu .internal_header_wrap {
+	display: block;
+	text-align: center;
+}
+.site_logo h2 {
+	margin: 0;
+	font-size: 2rem;
+	font-family: var(--heading-font);
+	font-weight: 800;
+	font-style: italic;
+}
+.site-menu ul li {
+	display: inline-block;
+}
+
+.site-menu ul li a {
+	font-size: 1.2rem;
+	font-weight: 600;
+	padding: 10px;
+	display: block;
+	text-transform: capitalize;
+}
+.site-menu ul li.current-menu-item a {
+	color: var(--hover-color);
+}
+
+/* =================== 
+Post Comments Style
+=====================================*/
+#post_comments {
+	padding-top: 50px;
+}
+#post_comments .comment-form {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+#post_comments p label {
+	display: block;
+	font-size: 1rem;
+	font-weight: 700;
+}
+#post_comments .comment-form-author,
+#post_comments .comment-form-email {
+	width: 49%;
+}
+#post_comments .comment-form .comment-notes,
+#post_comments .comment-form .comment-form-url,
+#post_comments .comment-form .comment-form-comment,
+#post_comments .comment-form .comment-form-cookies-consent {
+	width: 100%;
+}
+#post_comments .comment-form .comment-form-cookies-consent label {
+	display: inline-block;
+	font-size: inherit;
+}
+#post_comments .comment-form-author input,
+#post_comments .comment-form-email input,
+#post_comments .comment-form-url input,
+#post_comments .comment-form-comment textarea {
+	width: 100%;
+}
