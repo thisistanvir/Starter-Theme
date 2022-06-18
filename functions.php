@@ -1,7 +1,7 @@
 <?php
 
 /**
- * itanvir functions and definitions
+ * starter-theme functions and definitions
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
@@ -110,11 +110,15 @@ add_action('after_setup_theme', 'starter_theme_supports');
  * Enqueue scripts and styles.
  */
 function starter_theme_files() {
-   wp_enqueue_style('starter-theme-style', get_stylesheet_uri());
    wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/main.css', [], STARTER_THEME_VERSION, 'all');
+   wp_enqueue_style('starter-theme-style', get_stylesheet_uri());
 
    // wp_enqueue_script('slick', get_template_directory_uri() . '/assets/js/slick.min.js', ['jquery'], '1.8.1', true);
    wp_enqueue_script('main', get_template_directory_uri() . '/assets/js/main.js', ['jquery'], STARTER_THEME_VERSION, true);
+
+   if (is_singular() && comments_open() && get_option('thread_comments')) {
+      wp_enqueue_script('comment-reply');
+   }
 }
 add_action('wp_enqueue_scripts', 'starter_theme_files');
 
@@ -148,21 +152,29 @@ add_action('wp_enqueue_scripts', 'starter_theme_files');
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
-// function starter_theme_widgets_init() {
-//    register_sidebar(
-//        array(
-//            'name'          => esc_html__('Sidebar', 'starter-theme'),
-//            'id'            => 'sidebar-1',
-//            'description'   => esc_html__('Add widgets here.', 'starter-theme'),
-//            'before_widget' => '<section id="%1$s" class="widget %2$s">',
-//            'after_widget'  => '</section>',
-//            'before_title'  => '<h2 class="widget-title">',
-//            'after_title'   => '</h2>',
-//        )
-//    );
-// }
-// add_action('widgets_init', 'starter_theme_widgets_init');
+function starter_theme_widgets_init() {
+   register_sidebar(
+      array(
+         'name'          => esc_html__('Main Sidebar', 'starter-theme'),
+         'id'            => 'main-sidebar',
+         'description'   => esc_html__('Add widgets here.', 'starter-theme'),
+         'before_widget' => '<section id="%1$s" class="widget %2$s">',
+         'after_widget'  => '</section>',
+         'before_title'  => '<h2 class="widget-title">',
+         'after_title'   => '</h2>',
+      )
+   );
+}
+add_action('widgets_init', 'starter_theme_widgets_init');
 
+
+/**
+ * Excerpt Length
+ */
+function starter_theme_excerpt_length($length) {
+   return 20;
+}
+add_filter('excerpt_length', 'starter_theme_excerpt_length', 999);
 
 // post excerpt more
 function starter_theme_excerpt_more($more) {
@@ -171,7 +183,9 @@ function starter_theme_excerpt_more($more) {
 add_filter('excerpt_more', 'starter_theme_excerpt_more');
 
 
-// Theme Customize Register
+/**
+ * Theme Customize Register
+ */
 add_action('customize_register', 'starter_theme_customize_register');
 function starter_theme_customize_register($wp_customize) {
    // Header Area
@@ -195,7 +209,9 @@ function starter_theme_customize_register($wp_customize) {
       )
    );
 
-   // Menu Position
+   /**
+    * Menu Position
+    */
    $wp_customize->add_setting('starter_theme_menu_position', array(
       'default'        => 'right_menu',
    ));
@@ -217,7 +233,9 @@ function starter_theme_customize_register($wp_customize) {
 }
 
 
-// custom comments form order
+/**
+ * custom comments form order
+ */
 function starter_theme_comment_field($fields) {
    $comment = $fields['comment'];
    $author  = $fields['author'];
@@ -240,3 +258,15 @@ function starter_theme_comment_field($fields) {
    return $fields;
 }
 add_action('comment_form_fields', 'starter_theme_comment_field');
+
+
+/**
+ * Better Comments
+ */
+include_once('inc/better-comments.php');
+
+/**
+ * Codestar Framework
+ */
+include_once('inc/codestar-framework/codestar-framework.php');
+include_once('inc/metabox-and-options.php');

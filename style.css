@@ -7,7 +7,7 @@ Description: This is WordPress Starter Theme.
 Tags: blog
 Version: 1.0
 Requires at least: 5.0
-Tested up to: 5.8.2
+Tested up to: 6.0.0
 Requires PHP: 7.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -159,6 +159,23 @@ a:hover {
 	color: var(--hover-color);
 }
 
+.btn {
+	background-color: var(--hover-color);
+	display: inline-block;
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: 500;
+	font-family: var(--heading-font);
+	padding: 10px 20px;
+	border-radius: 30px;
+	color: var(--white-color);
+}
+
+.btn:hover {
+	background-color: var(--heading-color);
+	color: var(--white-color);
+}
+
 /* Inherit fonts for inputs and buttons */
 input,
 button,
@@ -197,8 +214,6 @@ textarea {
 }
 .section .section-container {
 	max-width: 1140px;
-}
-.section .section-container {
 	display: flex;
 	margin-right: auto;
 	margin-left: auto;
@@ -206,4 +221,13 @@ textarea {
 }
 .internal-content-wrap {
 	min-width: 100%;
+	padding: 0 10px;
+}
+.internal-content-wrap.sidebar {
+	min-width: 75%;
+}
+
+aside.widget-area {
+	min-width: 25%;
+	padding: 0 10px;
 }
