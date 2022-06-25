@@ -13,6 +13,30 @@ if (!defined('ABSPATH')) {
 }
 
 
+
+
+/**
+ * Better Comments
+ */
+include_once('inc/better-comments.php');
+
+/**
+ * Codestar Framework
+ */
+if (!class_exists('CSF')) {
+   include_once('inc/codestar-framework/codestar-framework.php');
+   include_once('inc/metabox-and-options.php');
+}
+
+/**
+ * TGM Plugin Activator
+ */
+if (!class_exists('TGM_Plugin_Activation')) {
+   include_once('inc/tgm-plugin-activation.php');
+   include_once('inc/required-plugins.php');
+}
+
+
 /**
  * Define theme version
  */
@@ -92,6 +116,19 @@ if (!function_exists('starter_theme_supports')) :
        * Add theme support for selective refresh for widgets.
        */
       add_theme_support('customize-selective-refresh-widgets');
+
+      /**
+       * Add support for core custom logo.
+       */
+      add_theme_support(
+         'custom-logo',
+         [
+            'height'      => 100,
+            'width'       => 350,
+            'flex-height' => true,
+            'flex-width'  => true,
+         ]
+      );
 
       /**
        * This theme uses wp_nav_menu() in one location.
@@ -258,15 +295,3 @@ function starter_theme_comment_field($fields) {
    return $fields;
 }
 add_action('comment_form_fields', 'starter_theme_comment_field');
-
-
-/**
- * Better Comments
- */
-include_once('inc/better-comments.php');
-
-/**
- * Codestar Framework
- */
-include_once('inc/codestar-framework/codestar-framework.php');
-include_once('inc/metabox-and-options.php');

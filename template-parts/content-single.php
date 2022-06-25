@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
    exit; // Exit if accessed directly.
 }
 
-while (have_posts()) : the_post(); ?>
+if (have_posts()) : ?>
 
    <article id="post-<?php the_ID(); ?>" <?php post_class('single_post'); ?>>
 
@@ -44,4 +44,4 @@ while (have_posts()) : the_post(); ?>
       ?>
    </div>
 
-<?php endwhile; ?>
+<?php endif; ?>

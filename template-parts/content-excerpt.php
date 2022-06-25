@@ -8,9 +8,15 @@
  * @package Starter_Theme
  */
 
-?>
 
-<?php while (have_posts()) : the_post(); ?>
+
+$args = [
+   'posts_per_page' => 3,
+   'post_type' => 'post',
+   'order' => 'DESC'
+];
+$blog = new WP_Query($args);
+while ($blog->have_posts()) : $blog->the_post(); ?>
 
    <article id="post-<?php the_ID(); ?>" <?php post_class('single_post_item'); ?>>
 
