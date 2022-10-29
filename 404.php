@@ -1,36 +1,31 @@
 <?php
 
 /**
- * The template for displaying 404 pages (not found).
+ * The template for displaying 404 pages (not found)
  *
- * @package starter-template
+ * @link https://codex.wordpress.org/Creating_an_Error_404_Page
+ *
+ * @package Starter_Theme
  */
+
 if (!defined('ABSPATH')) {
   exit; // Exit if accessed directly.
 }
-get_header(); ?>
 
-<main id="primary" class="site-main content-block">
+get_header();
+?>
 
-  <section class="section error-404 not-found">
-    <div class="section-container">
-      <div class="internal-content-wrap">
+<header class="page-header alignwide">
+  <h1 class="page-title"><?php esc_html_e('Oops! That page can&rsquo;t be found.', 'starter-theme'); ?></h1>
+</header><!-- .page-header -->
 
-        <header class="page-header">
-          <h1 class="page-title"><?php esc_html_e('Oops! That page can&rsquo;t be found.', 'starter-theme'); ?></h1>
-        </header><!-- .page-header -->
+<div class="error-404 not-found default-max-width">
+  <div class="page-content">
+    <p><?php esc_html_e('It looks like nothing was found at this location. Maybe try a search?', 'starter-theme'); ?></p>
+    <a href="<?php echo esc_url(home_url()); ?>" class="btn"><?php esc_html_e('go back to Home', 'starter-theme'); ?></a>
+    <?php get_search_form(); ?>
+  </div><!-- .page-content -->
+</div><!-- .error-404 -->
 
-        <div class="page-content">
-          <p><?php esc_html_e('It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'starter-theme'); ?></p>
-
-          <a href="<?php echo home_url(); ?>" class="btn"><?php esc_html_e('go back to Home', 'starter-theme'); ?></a>
-
-        </div><!-- .page-content -->
-
-      </div>
-    </div>
-  </section> <!-- .error-404 -->
-
-</main> <!-- #main -->
-
-<?php get_footer(); ?>
+<?php
+get_footer();

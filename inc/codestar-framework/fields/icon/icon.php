@@ -55,7 +55,7 @@ if (!class_exists('CSF_Field_icon')) {
                 <div class="csf-modal-close csf-icon-close"></div>
               </div>
               <div class="csf-modal-header">
-                <input type="text" placeholder="<?php esc_html_e('Search...', 'starter-theme'); ?>" class="csf-icon-search" />
+                <input type="text" placeholder="<?php esc_attr_e('Search...', 'starter-theme'); ?>" class="csf-icon-search" />
               </div>
               <div class="csf-modal-content">
                 <div class="csf-modal-loading">

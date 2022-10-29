@@ -8,34 +8,44 @@
  * @package Starter_Theme
  */
 
+if (!defined('ABSPATH')) {
+  exit; // Exit if accessed directly.
+}
+
 get_header();
+
+$description = get_the_archive_description();
 ?>
 
-<main id="primary" class="site-main content-block">
+<?php if (have_posts()) : ?>
 
-  <?php if (have_posts()) : ?>
+  <header class="page-header alignwide">
+    <?php the_archive_title('<h1 class="page-title">', '</h1>'); ?>
+    <?php if ($description) : ?>
+      <div class="archive-description"><?php echo wp_kses_post(wpautop($description)); ?></div>
+    <?php endif; ?>
+  </header><!-- .page-header -->
 
-    <section class="section breadcrumb">
-      <div class="section-container">
-        <div class="internal-content-wrap">
-          <h1 class="breadcrumb-title"><?php the_archive_title(); ?></h1>
-          <p class="archive-description"><?php the_archive_description() ?></p>
-        </div>
-      </div>
-    </section>
+<?php while (have_posts()) :
+    the_post();
 
-    <section class="section">
-      <div class="section-container">
-        <div class="internal-content-wrap">
-          <?php get_template_part('/template-parts/content', 'excerpt'); ?>
-        </div>
-      </div>
-    </section> <!-- .section -->
+    // post excerpt
+    get_template_part('template-parts/content', 'excerpt');
+  endwhile;
 
-  <?php else : ?>
-    <h2><?php esc_html_e('Nothing Found', 'starter-theme'); ?></h2>
-  <?php endif; ?>
+  // posts navigation
+  the_posts_pagination(
+    [
+      'screen_reader_text' => ' ',
+      'prev_text' => '<span class="fa fa-angle-left"></span>',
+      'next_text' => '<span class="fa fa-angle-right"></span>',
+      'class' => 'pagination'
+    ]
+  );
 
-</main> <!-- #main -->
+else :
 
-<?php get_footer(); ?>
+  // If no content, include the "No posts found" template.
+  get_template_part('template-parts/content', 'none');
+endif;
+get_footer();

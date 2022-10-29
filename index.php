@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The main template file
+ *  The main template file
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -14,29 +14,37 @@ if (!defined('ABSPATH')) {
 
 get_header(); ?>
 
-<main id="primary" class="site-main content-block">
+<?php if (is_home() && !is_front_page() && !empty(single_post_title('', false))) : ?>
+   <header class="page-header alignwide">
+      <h1 class="page-title"><?php single_post_title(); ?></h1>
+   </header><!-- .page-header -->
+<?php endif; ?>
 
-   <?php if (have_posts()) : ?>
+<?php if (have_posts()) :
 
-      <section class="section breadcrumb">
-         <div class="section-container">
-            <div class="internal-content-wrap">
-               <h1 class="breadcrumb-title"><?php single_post_title(); ?></h1>
-            </div>
-         </div>
-      </section>
+   // Load posts loop.
+   while (have_posts()) :
+      the_post();
 
-      <section class="section">
-         <div class="section-container">
-            <div class="internal-content-wrap">
-               <?php get_template_part('/template-parts/content', 'excerpt'); ?>
-            </div>
-         </div>
-      </section> <!-- .section -->
+      // post excerpt
+      get_template_part('/template-parts/content', 'excerpt');
 
-   <?php else : ?>
-      <h2><?php esc_html_e('Nothing Found', 'starter-theme'); ?></h2>
-   <?php endif; ?>
+   endwhile;
 
-</main> <!-- #main -->
-<?php get_footer(); ?>
+   // posts navigation
+   the_posts_pagination(
+      [
+         'screen_reader_text' => ' ',
+         'prev_text' => '<span class="fa fa-angle-left"></span>',
+         'next_text' => '<span class="fa fa-angle-right"></span>',
+         'class' => 'pagination'
+      ]
+   );
+
+else :
+
+   // If no content, include the "No posts found" template.
+   get_template_part('template-parts/content', 'none');
+endif;
+
+get_footer();

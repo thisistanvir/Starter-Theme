@@ -8,18 +8,21 @@
  * @package Starter_Theme
  */
 
+if (!defined('ABSPATH')) {
+   exit; // Exit if accessed directly.
+}
+
+// $args = [
+//    'posts_per_page' => 3,
+//    'post_type' => 'post',
+//    'order' => 'DESC'
+// ];
+// $blog = new WP_Query($args);
+?>
 
 
-$args = [
-   'posts_per_page' => 3,
-   'post_type' => 'post',
-   'order' => 'DESC'
-];
-$blog = new WP_Query($args);
-while ($blog->have_posts()) : $blog->the_post(); ?>
-
-   <article id="post-<?php the_ID(); ?>" <?php post_class('single_post_item'); ?>>
-
+<article id="post-<?php the_ID(); ?>" <?php post_class('single_post_item'); ?>>
+   <div class="entry-content">
       <a href="<?php the_permalink(); ?>">
          <?php the_post_thumbnail('thumbnail', ['class' => 'alignleft post_thumb']); ?>
          <h2 class="post_title"><?php the_title(); ?></h2>
@@ -32,18 +35,5 @@ while ($blog->have_posts()) : $blog->the_post(); ?>
          <span class="tags-list"><?php the_tags(' ', ', ') ?></span>
       </p>
       <?php the_excerpt(); ?>
-   </article>
-
-<?php endwhile; ?>
-
-
-<!-- Post Pagination -->
-<?php the_posts_pagination(
-   [
-      'screen_reader_text' => ' ',
-      'prev_text' => '<span class="fa fa-angle-left"></span>',
-      'next_text' => '<span class="fa fa-angle-right"></span>',
-      'class' => 'pagination'
-   ]
-);
-?>
+   </div>
+</article>

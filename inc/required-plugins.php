@@ -22,6 +22,11 @@ function starter_theme_required_plugins() {
       'slug'      => 'classic-widgets',
       'required'  => true,
     ),
+    array(
+      'name'      => esc_html__('One Click Demo Import', 'starter-theme'),
+      'slug'      => 'one-click-demo-import',
+      'required'  => true,
+    ),
 
 
     // // This is an example of how to include a plugin bundled with a theme.

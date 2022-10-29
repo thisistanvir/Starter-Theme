@@ -11,33 +11,65 @@
 if (!defined('ABSPATH')) {
   exit; // Exit if accessed directly.
 }
+get_header();
 
-get_header(); ?>
+if (have_posts()) :
+?>
+  <header class="page-header alignwide">
+    <h1 class="page-title">
+      <?php
+      printf(
+        /* translators: %s: Search term. */
+        esc_html__('Results for "%s"', 'starter-theme'),
+        '<span class="page-description search-term">' . esc_html(get_search_query()) . '</span>'
+      );
+      ?>
+    </h1>
+  </header><!-- .page-header -->
 
-<main id="primary" class="site-main content-block">
+  <div class="search-result-count default-max-width">
+    <?php
+    printf(
+      esc_html(
+        /* translators: %d: The number of search results. */
+        _n(
+          'We found %d result for your search.',
+          'We found %d results for your search.',
+          (int) $wp_query->found_posts,
+          'starter-theme'
+        )
+      ),
+      (int) $wp_query->found_posts
+    );
+    ?>
+  </div><!-- .search-result-count -->
+<?php
+  // Start the Loop.
+  while (have_posts()) :
+    the_post();
 
-  <?php if (have_posts()) : ?>
+    /*
+		 * Include the Post-Format-specific template for the content.
+		 * If you want to override this in a child theme, then include a file
+		 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
+		 */
+    get_template_part('/template-parts/content', 'excerpt');
+  endwhile; // End the loop.
 
-    <section class="section breadcrumb">
-      <div class="section-container">
-        <div class="internal-content-wrap">
-          <h1 class="breadcrumb-title"> <?php printf(esc_html__('Search Results for: %s', 'starter-theme'), '<span>' . get_search_query() . '</span>'); ?> </h1>
-        </div>
-      </div>
-    </section>
+  // posts navigation
+  the_posts_pagination(
+    [
+      'screen_reader_text' => ' ',
+      'prev_text' => '<span class="fa fa-angle-left"></span>',
+      'next_text' => '<span class="fa fa-angle-right"></span>',
+      'class' => 'pagination'
+    ]
+  );
 
-    <section class="section">
-      <div class="section-container">
-        <div class="internal-content-wrap">
-          <?php get_template_part('/template-parts/content', 'excerpt'); ?>
-        </div>
-      </div>
-    </section> <!-- .section -->
-
-  <?php else : ?>
-    <h2><?php esc_html_e('Nothing Found', 'starter-theme'); ?></h2>
-  <?php endif; ?>
-
-</main> <!-- #main -->
+// If no content, include the "No posts found" template.
+else :
+  get_template_part('template-parts/content', 'none');
+endif;
+?>
 
 <?php get_footer(); ?>

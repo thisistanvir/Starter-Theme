@@ -1,9 +1,9 @@
 <?php
 
 /**
- * The template for displaying all pages
+ * The template for displaying all single page
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-page
  *
  * @package Starter_Theme
  */
@@ -13,32 +13,19 @@ if (!defined('ABSPATH')) {
 }
 
 
-get_header(); ?>
+get_header();
 
-<main id="primary" class="site-main content-block">
+/* Start the Loop */
+while (have_posts()) :
+  the_post();
 
-  <?php if (have_posts()) : ?>
+  // page content
+  get_template_part('template-parts/content', 'page');
 
-    <?php get_template_part('/template-parts/content', 'breadcrumb'); ?>
+  // If comments are open or there is at least one comment, load up the comment template.
+  if (comments_open() || get_comments_number()) {
+    comments_template();
+  }
+endwhile; // End of the loop.
 
-    <section class="section">
-      <div class="section-container">
-
-        <div class="internal-content-wrap <?php if (is_active_sidebar('main-sidebar')) {
-                                            esc_html_e('sidebar', 'starter-theme');
-                                          } ?>">
-          <?php get_template_part('/template-parts/content'); ?>
-        </div>
-
-        <?php get_sidebar(); ?>
-
-      </div>
-    </section> <!-- .section -->
-
-  <?php else : ?>
-    <h2><?php esc_html_e('Nothing Found', 'starter-theme'); ?></h2>
-  <?php endif; ?>
-
-</main> <!-- #main -->
-
-<?php get_footer(); ?>
+get_footer();

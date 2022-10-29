@@ -12,10 +12,10 @@
 if (!function_exists('better_comments')) :
   function better_comments($comment, $args, $depth) {
 ?>
-    <li class="comment-list">
-      <div class="single-comment justify-content-between d-flex" id="li-comment-<?php comment_ID() ?>">
+    <li class="comment">
+      <div class="single-comment justify-content-between d-flex" id="comment-<?php comment_ID() ?>">
         <?php if ($comment->comment_approved == '0') : ?>
-          <em><?php esc_html_e('Your comment is awaiting moderation.', 'buson') ?></em>
+          <em><?php esc_html_e('Your comment is awaiting moderation.', 'starter-theme') ?></em>
           <br />
         <?php endif; ?>
 

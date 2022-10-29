@@ -13,31 +13,18 @@ if (!defined('ABSPATH')) {
 }
 
 get_header();
-?>
-<main id="primary" class="site-main content-block">
 
-   <?php if (have_posts()) : ?>
+/* Start the Loop */
+while (have_posts()) :
+   the_post();
 
-      <?php get_template_part('/template-parts/content', 'breadcrumb'); ?>
+   get_template_part('template-parts/content', 'single');
 
-      <section class="section">
-         <div class="section-container">
 
-            <div class="internal-content-wrap <?php if (is_active_sidebar('main-sidebar')) {
-                                                   esc_html_e('sidebar', 'starter-theme');
-                                                } ?>">
-               <?php get_template_part('/template-parts/content', 'single'); ?>
-            </div>
+   // If comments are open or there is at least one comment, load up the comment template.
+   if (comments_open() || get_comments_number()) {
+      comments_template();
+   }
+endwhile; // End of the loop.
 
-            <!-- sidebar -->
-            <?php get_sidebar(); ?>
-
-         </div>
-      </section> <!-- .section -->
-
-   <?php else : ?>
-      <h2><?php esc_html_e('Nothing Found', 'starter-theme'); ?></h2>
-   <?php endif; ?>
-
-</main> <!-- #main -->
-<?php get_footer(); ?>
+get_footer();

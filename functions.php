@@ -1,7 +1,7 @@
 <?php
 
 /**
- * starter-theme functions and definitions
+ * Functions and definitions
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
@@ -11,31 +11,6 @@
 if (!defined('ABSPATH')) {
    exit; // Exit if accessed directly.
 }
-
-
-
-
-/**
- * Better Comments
- */
-include_once('inc/better-comments.php');
-
-/**
- * Codestar Framework
- */
-if (!class_exists('CSF')) {
-   include_once('inc/codestar-framework/codestar-framework.php');
-   include_once('inc/metabox-and-options.php');
-}
-
-/**
- * TGM Plugin Activator
- */
-if (!class_exists('TGM_Plugin_Activation')) {
-   include_once('inc/tgm-plugin-activation.php');
-   include_once('inc/required-plugins.php');
-}
-
 
 /**
  * Define theme version
@@ -72,6 +47,24 @@ if (!function_exists('starter_theme_supports')) :
       */
       add_theme_support('post-thumbnails');
 
+      /**
+       * Add post-formats support.
+       */
+      add_theme_support(
+         'post-formats',
+         array(
+            'link',
+            'aside',
+            'gallery',
+            'image',
+            'quote',
+            'status',
+            'video',
+            'audio',
+            'chat',
+         )
+      );
+
       /*
       * Switch default core markup for search form, comment form, and comments
       * to output valid HTML5.
@@ -79,24 +72,51 @@ if (!function_exists('starter_theme_supports')) :
       add_theme_support(
          'html5',
          array(
-            'search-form',
             'comment-form',
             'comment-list',
             'gallery',
             'caption',
             'style',
             'script',
+            'navigation-widgets',
          )
       );
 
-      /*
-      * Enable support for Post Formats.
-      *
-      * See: https://codex.wordpress.org/Post_Formats
-      */
-      add_theme_support('post-formats', array(
-         'aside', 'image', 'video', 'quote', 'link', 'gallery', 'status', 'audio', 'chat'
-      ));
+      /**
+       * Add theme support for selective refresh for widgets.
+       */
+      add_theme_support('customize-selective-refresh-widgets');
+
+      // Add support for Block Styles.
+      add_theme_support('wp-block-styles');
+
+      // Add support for full and wide align images.
+      add_theme_support('align-wide');
+
+      // Add support for editor styles.
+      add_theme_support('editor-styles');
+
+      // Add support for responsive embedded content.
+      add_theme_support('responsive-embeds');
+
+      // Add support for custom line height controls.
+      add_theme_support('custom-line-height');
+
+      // Add support for experimental link color control.
+      add_theme_support('experimental-link-color');
+
+      // Add support for experimental cover block spacing.
+      add_theme_support('custom-spacing');
+
+      // Add support for custom units.
+      // This was removed in WordPress 5.6 but is still required to properly support WP 5.5.
+      add_theme_support('custom-units');
+
+      // Remove feed icon link from legacy RSS widget.
+      add_filter('rss_widget_feed_link', '__return_false');
+
+      // Add support for custom header
+      add_theme_support("custom-header");
 
       /**
        * Set up the WordPress core custom background feature.
@@ -112,23 +132,23 @@ if (!function_exists('starter_theme_supports')) :
          )
       );
 
-      /**
-       * Add theme support for selective refresh for widgets.
-       */
-      add_theme_support('customize-selective-refresh-widgets');
 
       /**
        * Add support for core custom logo.
        */
+      $logo_width  = 300;
+      $logo_height = 100;
+
       add_theme_support(
          'custom-logo',
          [
-            'height'      => 100,
-            'width'       => 350,
+            'height'      => $logo_height,
+            'width'       => $logo_width,
             'flex-height' => true,
             'flex-width'  => true,
          ]
       );
+
 
       /**
        * This theme uses wp_nav_menu() in one location.
@@ -268,6 +288,50 @@ function starter_theme_customize_register($wp_customize) {
       )
    );
 }
+
+
+/**
+ * Better Comments
+ */
+include_once('inc/better-comments.php');
+
+/**
+ * Codestar Framework
+ */
+if (!class_exists('CSF')) {
+   include_once('inc/codestar-framework/codestar-framework.php');
+   include_once('inc/metabox-and-options.php');
+}
+
+/**
+ * TGM Plugin Activator
+ */
+if (!class_exists('TGM_Plugin_Activation')) {
+   include_once('inc/tgm-plugin-activation.php');
+   include_once('inc/required-plugins.php');
+}
+
+
+/**
+ * One Click Demo Import
+ */
+if (!function_exists('starter_theme_import_files')) {
+   function starter_theme_import_files() {
+      return array(
+         array(
+            'import_file_name'             => esc_html__('Starter-Theme Demo Import', 'starter-theme'),
+            'local_import_file'            => trailingslashit(get_template_directory()) . '/inc/demo-data/content.xml',
+            'local_import_widget_file'     => trailingslashit(get_template_directory()) . '/inc/demo-data/widgets.wie',
+            'local_import_customizer_file' => trailingslashit(get_template_directory()) . '/inc/demo-data/customize.dat',
+            'import_preview_image_url'     => get_template_directory_uri() . '/screenshot.png',
+            'import_notice'                => esc_html__('After import demo, just set static homepage from settings > reading, Check widgets and menu. You will be done! :-)', 'starter-theme'),
+            // 'preview_url'                  => 'http://www.your_domain.com/my-demo-1',
+         ),
+      );
+   }
+   add_filter('ocdi/import_files', 'starter_theme_import_files');
+}
+
 
 
 /**
